@@ -1,0 +1,5 @@
+将替换验证码文件夹内的文件替换
+\public\views\home\mobile\register\index.phtml
+\app\home\controller\Register.php
+
+默认安装关闭注册短信，如需开启请购买阿里云短信套餐包后进行文件替换配置

@@ -1,0 +1,6 @@
+将替换验证码文件夹内的文件替换
+\public\views\home\mobile\register\index.phtml
+\app\home\controller\Register.php
+
+阿里云短信配置  app\home\controller\Register.php
+请参考图片教程进行配置
