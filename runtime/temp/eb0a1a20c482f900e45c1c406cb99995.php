@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:37:"./views/home/mobile/index\index.phtml";i:1571712517;s:51:"D:\www\public\views\home\mobile\common\footer.phtml";i:1571712517;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:37:"./views/home/mobile/index\index.phtml";i:1571712517;s:75:"D:\soft\xampp\htdocs\daocaoren\public\views\home\mobile\common\footer.phtml";i:1571712517;}*/ ?>
 ﻿<!DOCTYPE HTML>
 <html>
 	<head>
@@ -163,7 +163,7 @@
             <span class="paging-prev">上一页</span>
             <span class="paging-num-total">
 					<select name="page" class="paging-selct">
-                        <?php $__FOR_START_15871__=1;$__FOR_END_15871__=$pageCount+1;for($i=$__FOR_START_15871__;$i < $__FOR_END_15871__;$i+=1){ ?>
+                        <?php $__FOR_START_1135948215__=1;$__FOR_END_1135948215__=$pageCount+1;for($i=$__FOR_START_1135948215__;$i < $__FOR_END_1135948215__;$i+=1){ ?>
                         <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
                         <?php } ?>
                     </select>
