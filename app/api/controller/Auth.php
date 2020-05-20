@@ -126,23 +126,34 @@ class Auth extends  Controller{
                     'data'=>[],
                 ]);
             }else{
-                $params['salt'] = random(8);
-                $params['password'] = md5_password($params['password'],$params['salt']);
-                $params['create_time'] = TIMESTAMP;
-                $insert_member_id = Member::addInfo($params);
-                if(!$insert_member_id){
-                    return json([
-                        'status'=>'200',
-                        'msg'=>"注册失败",
-                        'data'=>[],
-                    ]);
+                $member_info    =   Db::name('member')->field("uid")->where(['username'=>$params['username']])->find();
+                if($member_info == NULL){
+                    $params['salt'] = random(8);
+                    $params['password'] = md5_password($params['password'],$params['salt']);
+                    $params['create_time'] = TIMESTAMP;
+                    $insert_member_id = Member::addInfo($params);
+                    if(!$insert_member_id){
+                        return json([
+                            'status'=>'200',
+                            'msg'=>"注册失败",
+                            'data'=>[],
+                        ]);
+                    }else{
+                        return json([
+                            'status'=>'200',
+                            'msg'=>"注册成功",
+                            'data'=>[],
+                        ]);
+                    }
                 }else{
                     return json([
                         'status'=>'200',
-                        'msg'=>"注册成功",
+                        'msg'=>"已注册",
                         'data'=>[],
                     ]);
                 }
+
+
             }
         }else{
             return json([
