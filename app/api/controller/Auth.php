@@ -107,7 +107,13 @@ class Auth extends  Controller{
 
     }
 
-
+    /**
+     * 注册接口
+     * @return \think\response\Json
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function register(){
         if($this->request->request()){
             $params = ($this->request->post());
@@ -164,63 +170,7 @@ class Auth extends  Controller{
         }
     }
     //注册
-    public function register2(){
-        $parent_uid = intval(trim(params('i')));
 
-        if(request()->isAjax()){
-            $params = array_trim(request()->post());
-            $validate = Loader::validate('Member');
-            if(!$validate->check($params)){
-                message($validate->getError(),'','error');
-            }
-
-            $parent_member = [];
-            if ($parent_uid > 0) {
-                $parent_member = Member::getUserInfoById($parent_uid);
-                if (!$parent_member) {
-                    message('邀请失败','','error');
-                }
-            }
-
-            Db::startTrans();
-            $params['parent_uid'] = $parent_uid;
-            $params['salt'] = random(8);
-            $params['password'] = md5_password($params['password'],$params['salt']);
-            $params['create_time'] = TIMESTAMP;
-            unset($params['password_confirm'],$params['invitation_code'],$params['captcha']);
-            $insert_member_id = Member::addInfo($params);
-            if(!$insert_member_id){
-                message('注册失败','','error');
-            }
-
-            if ($parent_uid > 0) {
-                $status3 = Invitation::addInfo([
-                    'uid' => $parent_member['uid'],
-                    'username' => $parent_member['username'],
-                    'invite_uid' => $insert_member_id,
-                    'invite_username' => $params['username'],
-                    'create_time' => TIMESTAMP
-                ]);
-                if(!$status3){
-                    Db::rollback();
-                    message('注册失败','','error');
-                }
-
-                $status4 = Member::updateInviteInfo($parent_uid);
-                if(!$status4){
-                    Db::rollback();
-                    message('注册失败','','error');
-                }
-            }
-
-            Db::commit();
-
-            message('注册成功','/home/auth/login.html','success');
-        }
-        return $this->fetch(__FUNCTION__, [
-            'parent_uid' => $parent_uid
-        ]);
-    }
 
     public function findpwd(){
         return $this->fetch(__FUNCTION__);
