@@ -418,8 +418,6 @@ function tpl_mobile_message($message = '糟糕，出错了',$url = ''){
             <meta name="apple-mobile-web-app-capable" content="yes"> <!-- apple devices fullscreen -->
             <meta name="apple-touch-fullscreen" content="yes">
             <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-            <meta name="keywords" content="郑州慕马树网络科技有限公司，河南郑州微信第三方开发，河南郑州小程序开发，河南郑州游戏开发，河南郑州手机app定制开发，河南郑州网站建设，河南郑州服务器维护等，全心全意服务，客户至上，售后无忧，0371-55297759">
-            <meta name="description" content="郑州慕马树网络科技有限公司，河南郑州微信第三方开发，河南郑州小程序开发，河南郑州游戏开发，河南郑州手机app定制开发，河南郑州网站建设，河南郑州服务器维护等，全心全意服务，客户至上，售后无忧，0371-55297759">
             <link href="/static/error/mobile/common.min.css" rel="stylesheet">
         </head>
         <body style="padding-bottom: 20px;">

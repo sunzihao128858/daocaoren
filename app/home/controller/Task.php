@@ -16,6 +16,7 @@ use app\home\model\Member;
 use think\Db;
 use think\Log;
 
+
 class Task extends Base{
 
     public function index(){
@@ -167,6 +168,10 @@ class Task extends Base{
     //添加任务
     public function add(){
         $member = $this->checkLogin();
+        $is_add = ['13312181278','18041753713',];
+        if(!in_array($member['username'],$is_add)){
+            message('您的级别还不够','','error');
+        }
         $setting = ['push_check' => 0];
         $config = Config::getInfo();
 
