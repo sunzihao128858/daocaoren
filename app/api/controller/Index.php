@@ -1,16 +1,17 @@
 <?php
 namespace app\api\controller;
 use app\admin\model\TaskCategory;
+use think\Controller;
 
 /**
  * Class Index
  * @package app\home\controller
  * 首页控制器
  */
-class Index extends Base{
+class Index extends Controller {
 
     public function index(){
-        $token = $this->request->token();
+
         //所有分类
         $categories = TaskCategory::getList();
         //获取今日所有任务个人所得积分和金额
@@ -51,17 +52,19 @@ class Index extends Base{
         }
         $count = \app\home\model\Task::getCountByParams($params);
         $pageCount = ceil($count/$pszie);
-        print_r($token);die;
-        return $this->fetch(__FUNCTION__,[
-            'token' => $request['token'],
-            'categories' => $categories,
-            'banners' => $banners,
-            'notices' => $notices,
-            'withdraws' => $withdraws,
-            'today_credit1' => $today_credit1,
-            'today_credit2' => $today_credit2,
-            'tasks' => $tasks,
-            'pageCount' => $pageCount
+        return json([
+            'status'=>'200',
+            'msg'=>"首页",
+            'data'=>[
+                'categories' => $categories,
+                'banners' => $banners,
+                'notices' => $notices,
+                'withdraws' => $withdraws,
+                'today_credit1' => $today_credit1,
+                'today_credit2' => $today_credit2,
+                'tasks' => $tasks,
+                'pageCount' => $pageCount
+            ],
         ]);
     }
 

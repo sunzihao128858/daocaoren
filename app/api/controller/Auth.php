@@ -62,7 +62,7 @@ class Auth extends  Controller{
                 $member_info    =   Db::name('member')->field("uid,salt,password")->where(['username'=>$params['username']])->find();
                 if($member_info == NULL){
                     return json([
-                        'status'=>'405',
+                        'status'=>'200',
                         'msg'=>"未注册",
                         'data'=>[],
                     ]);
