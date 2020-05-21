@@ -255,6 +255,9 @@ return [
         // 验证成功后是否重置
         'reset'    => true,
         'fontttf' => '5.ttf'
-],
+    ],
+    'need_login' =>[
+        'task.test','task.accept'
+    ]
 
 ];

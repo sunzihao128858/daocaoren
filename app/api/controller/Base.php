@@ -7,6 +7,8 @@
  */
 namespace app\api\controller;
 use app\api\model\Token;
+use app\api\model\TokenUtil;
+use think\Config;
 use think\Controller;
 use think\response\Json;
 
@@ -37,5 +39,51 @@ class Base extends Controller
 //        $data = (array)$checkToken['data']['data'];
 //        echo "token: ";
 //        print_r($data);die;
+        $this->_checkLogin();
+    }
+    /**
+     * 检查是否需要登录
+     */
+    private function _checkLogin(){
+        $controller =   $this->request->controller();//获得控制器名
+        $action     =   $this->request->action();//获得处理器名
+
+//        print_r(Config::get('need_login'));
+//        print_r($controller);
+//        die;
+        if(in_array(strtolower($controller.".".$action),Config::get('need_login'))){
+            $request = $this->request->request();
+            $jwtToken = new Token();
+            if(isset($request['token'])){
+                $checkToken = $jwtToken->checkToken($request['token']);
+                //print_r($checkToken);die;
+                if($checkToken['status'] == 200){
+                    if(!TokenUtil::getMemberInfo($checkToken['data']['data']->uid, $request['token'])){
+                        echo json_encode([
+                            'status'=>'404',
+                            'msg'=>"token错误",
+                            'data'=>[],
+                        ]);
+                        die;
+                    }
+                }else{
+                    echo json_encode([
+                        'status'=>'404',
+                        'msg'=>"已失效, 请重新登录",
+                        'data'=>[],
+                    ]);
+                    die;
+                }
+            }else{
+                echo json_encode([
+                    'status'=>'404',
+                    'msg'=>"token错误",
+                    'data'=>[],
+                ]);
+                die;
+            }
+
+        }
+
     }
 }

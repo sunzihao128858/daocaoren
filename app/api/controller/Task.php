@@ -18,7 +18,7 @@ use think\Db;
 use think\Log;
 
 
-class Task extends Controller{
+class Task extends Base {
 
     public function index(){
         $category_id = floor(trim(params('category_id')));
@@ -44,7 +44,11 @@ class Task extends Controller{
             'pageCount' => $pageCount
         ]);
     }
-
+    public function test(){
+        print_r($this->request->action());
+        print_r($this->request->controller());
+        die;
+    }
     /**
      * 任务详情
      * @return \think\response\Json
@@ -56,7 +60,7 @@ class Task extends Controller{
         if(!check_id($id)){
             return json([
                 'status'=>'404',
-                'msg'=>"任务ID错误'",
+                'msg'=>"任务ID错误",
                 'data'=>[],
             ]);
         }
